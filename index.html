@@ -1,6 +1,14 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Future Architect AI</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@400;500&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
 :root{
   --ink:#080C18;--ink2:#111827;--ink3:#1C2540;
   --acc:#1B6CF2;--acc2:#0DD4B8;--acc3:#6366F1;--warm:#F5A623;
@@ -11,13 +19,33 @@
   --r:10px;--p:16px;
 }
 
-body{font-family:var(--b);background:var(--ink);color:var(--txt);overflow:hidden}
+*{margin:0;padding:0;box-sizing:border-box}
 
-.frame{
-  width:100%;max-width:900px;margin:0 auto;
-  height:680px;display:flex;flex-direction:column;overflow:hidden;
-  border:1px solid var(--line2);border-radius:14px;
-  background:var(--ink);
+/* 2. จัดระเบียบ Body ให้รองรับการจัดกลางบน Desktop และเต็มจอบน Mobile */
+html, body {
+  height: 100%;
+  font-family: var(--b);
+  background: #000; /* สีพื้นหลังของหน้าต่างรอบนอกบน Desktop */
+  color: var(--txt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* 3. ปรับ Frame ให้ฉลาดขึ้น ยืดหดตามบริบท */
+.frame {
+  width: 100%;
+  max-width: 900px;
+  height: 100dvh; /* เริ่มต้นที่เต็มจอไว้ก่อน (รองรับ Address bar มือถือด้วย dvh) */
+  max-height: 680px; /* ล็อคความสูงบนหน้าจอใหญ่ */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line2);
+  border-radius: 14px;
+  background: var(--ink);
+  position: relative;
 }
 
 nav{
@@ -48,7 +76,7 @@ nav{
   display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 0;
   transition:width .3s;overflow:hidden;
 }
-.sidebar.expanded{width:180px;align-items:flex-start;padding:12px 0}
+.sidebar.expanded{width:180px;align-items:flex-start;padding:12px 0;z-index: 20;}
 .s-item{
   width:100%;display:flex;align-items:center;gap:10px;
   padding:9px 0;justify-content:center;cursor:pointer;
@@ -134,7 +162,7 @@ h1.hero span{color:var(--acc)}
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .chp{padding:6px 11px;border-radius:5px;font-size:11px;font-family:var(--h);font-weight:500;cursor:pointer;border:1px solid rgba(27,108,242,0.3);color:var(--acc);background:rgba(27,108,242,0.07);transition:all .2s;min-height:32px}
 .chp:hover{background:rgba(27,108,242,0.18)}
-.in-row{padding:10px var(--p);border-top:1px solid var(--line2);display:flex;gap:8px;flex-shrink:0}
+.in-row{padding:10px var(--p);border-top:1px solid var(--line2);display:flex;gap:8px;flex-shrink:0;background:var(--ink)}
 .chat-in{flex:1;background:var(--card2);border:1px solid var(--line2);border-radius:6px;padding:9px 12px;color:var(--txt);font-size:13px;font-family:var(--b);outline:none;min-height:38px}
 .chat-in::placeholder{color:var(--txt2)}
 .chat-in:focus{border-color:rgba(27,108,242,0.4)}
@@ -204,18 +232,29 @@ h1.hero span{color:var(--acc)}
 
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 
+/* 4. ปรับ Media Query ของ Mobile ให้ปลดล็อกความสูง และจัดพื้นที่เมนูให้เหมาะสม */
 @media(max-width:640px){
+  .frame {
+    max-height: none; /* ปลดขีดจำกัดความสูง */
+    border-radius: 0; /* แนบชิดขอบจอ */
+    border: none;
+  }
   .dtabs{display:none}
   .hambtn{display:flex}
   .sidebar{display:none}
   .mob-nav{display:flex}
-  .main{padding-bottom:56px}
+  .main{padding-bottom:56px} /* เว้นที่ให้ Mobile Nav Bar ด้านล่าง */
   :root{--p:13px}
   h1.hero{font-size:26px}
   .ag-grid{grid-template-columns:1fr 1fr}
   .dash-grid{grid-template-columns:1fr 1fr}
   .ag-card .ag-d{display:none}
+  /* ดันช่องแชทให้ลอยเหนือ Mobile Nav พอดี */
+  .in-row {
+    padding-bottom: calc(10px + 56px); 
+  }
 }
+
 @media(min-width:641px) and (max-width:860px){
   .dtabs{display:none}
   .hambtn{display:flex}
@@ -223,11 +262,12 @@ h1.hero span{color:var(--acc)}
   .dash-grid{grid-template-columns:1fr 1fr}
 }
 </style>
+</head>
+<body>
 
-<h2 class="sr-only">Future Architect AI — responsive prototype ปรับแสดงผลสำหรับ desktop, tablet และ mobile โดยอัตโนมัติ</h2>
+<h2 class="sr-only">Future Architect AI — responsive prototype</h2>
 
 <div class="frame">
-
 <nav>
   <div class="brand">Future <em>Architect</em> AI</div>
   <div class="nav-right">
@@ -242,7 +282,6 @@ h1.hero span{color:var(--acc)}
 </nav>
 
 <div class="body-wrap">
-
   <div class="sidebar" id="sidebar">
     <button class="s-item on" id="sb-land" onclick="go('land')" aria-label="Overview">
       <i class="ti ti-home" aria-hidden="true"></i>
@@ -263,7 +302,6 @@ h1.hero span{color:var(--acc)}
   </div>
 
   <div class="main" id="main">
-
     <div class="scr on" id="pg-land">
       <div class="sec">
         <div class="lbl-chip"><i class="ti ti-cpu" style="font-size:11px" aria-hidden="true"></i>Multi-Agent AI Platform</div>
@@ -433,7 +471,6 @@ h1.hero span{color:var(--acc)}
         </div>
       </div>
     </div>
-
   </div>
 
   <div class="mob-nav" id="mobnav">
@@ -442,7 +479,6 @@ h1.hero span{color:var(--acc)}
     <button class="mob-item" id="mob-dash" onclick="go('dash')"><i class="ti ti-layout-dashboard" aria-hidden="true"></i><span class="mob-label">Dashboard</span></button>
     <button class="mob-item" id="mob-ref" onclick="go('ref')"><i class="ti ti-microphone" aria-hidden="true"></i><span class="mob-label">Reflection</span></button>
   </div>
-
 </div>
 </div>
 
@@ -467,16 +503,15 @@ function go(id){
   const mob=document.getElementById('mob-'+id);if(mob)mob.classList.add('on');
   document.getElementById('main').scrollTop=0;
   const sd=document.getElementById('sidebar');
-  if(sd.classList.contains('expanded')){sd.classList.remove('expanded')}
+  if(sd.classList.contains('expanded')){sd.classList.remove('expanded'); sideOpen = false; sd.style.display='none';}
 }
 
 let sideOpen=false;
 function toggleSide(){
   sideOpen=!sideOpen;
   const sd=document.getElementById('sidebar');
-  sd.style.display=sideOpen?'flex':'none';
-  if(sideOpen){sd.classList.add('expanded');sd.style.position='absolute';sd.style.zIndex='20';sd.style.height='100%';sd.style.top='0';sd.style.left='0'}
-  else{sd.classList.remove('expanded');sd.style.position='';sd.style.zIndex=''}
+  if(sideOpen){sd.style.display='flex'; sd.classList.add('expanded');}
+  else{sd.classList.remove('expanded'); sd.style.display='none';}
 }
 
 const chatData=[
@@ -534,3 +569,5 @@ function tog(){
 const pg=document.getElementById('pg-land');
 if(pg){pg.style.display='block'}
 </script>
+</body>
+</html>
