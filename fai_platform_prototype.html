@@ -1,0 +1,476 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0A0E1A;
+  --ink2:#1A2035;
+  --ink3:#232C48;
+  --slate:#8892AA;
+  --line:rgba(255,255,255,0.07);
+  --line2:rgba(255,255,255,0.12);
+  --accent:#1B6CF2;
+  --accent2:#0DD4B8;
+  --accent3:#6366F1;
+  --warm:#F5A623;
+  --txt:#D6DCF0;
+  --txt2:#8892AA;
+  --card:rgba(255,255,255,0.04);
+  --card2:rgba(255,255,255,0.07);
+  --h:'Prompt',sans-serif;
+  --b:'Sarabun',sans-serif;
+}
+body{font-family:var(--b);background:var(--ink);color:var(--txt);overflow:hidden;height:620px}
+
+.scr{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s;overflow-y:auto;top:48px}
+.scr.on{opacity:1;pointer-events:all}
+
+nav{
+  position:absolute;top:0;left:0;right:0;height:48px;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;
+  background:rgba(10,14,26,0.96);
+  border-bottom:1px solid var(--line2);
+}
+.brand{font-family:var(--h);font-weight:700;font-size:15px;letter-spacing:.04em;color:#fff}
+.brand em{color:var(--accent);font-style:normal}
+.tabs{display:flex;gap:2px}
+.tab{
+  padding:5px 13px;border-radius:6px;font-size:11px;font-family:var(--h);font-weight:500;
+  letter-spacing:.03em;cursor:pointer;border:none;background:transparent;
+  color:var(--txt2);transition:all .2s;
+}
+.tab.on{background:rgba(27,108,242,0.14);color:var(--accent);border:1px solid rgba(27,108,242,0.25)}
+.tab:hover:not(.on){background:var(--card2);color:var(--txt)}
+
+/* ── LANDING ── */
+#pg-land{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:calc(100% - 48px);padding:40px 24px;text-align:center;
+  background:radial-gradient(600px 400px at 50% -40px,rgba(27,108,242,0.09),transparent);
+}
+.lbl{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid rgba(27,108,242,0.3);padding:4px 14px;border-radius:4px;
+  font-size:10px;font-family:var(--h);font-weight:600;color:var(--accent);
+  letter-spacing:.12em;margin-bottom:28px;text-transform:uppercase;
+}
+.lbl i{font-size:12px}
+h1.hero{
+  font-family:var(--h);font-weight:700;font-size:42px;line-height:1.12;
+  letter-spacing:-.01em;margin-bottom:14px;color:#fff;
+}
+h1.hero span{color:var(--accent)}
+.sub{font-size:15px;color:var(--txt2);line-height:1.75;max-width:440px;margin-bottom:36px;font-family:var(--b)}
+.cta{
+  padding:11px 32px;border-radius:6px;border:none;cursor:pointer;
+  font-family:var(--h);font-weight:600;font-size:13px;letter-spacing:.04em;
+  background:var(--accent);color:#fff;transition:all .2s;
+}
+.cta:hover{background:#1558D6;transform:translateY(-1px)}
+.stats{display:flex;gap:32px;margin-top:52px;border-top:1px solid var(--line2);padding-top:32px}
+.stat-item{text-align:center}
+.stat-n{font-family:var(--h);font-size:26px;font-weight:700;color:#fff;margin-bottom:4px}
+.stat-l{font-size:11px;color:var(--txt2);font-family:var(--b)}
+.agents{display:flex;gap:12px;margin-top:40px}
+.ag{
+  background:var(--card);border:1px solid var(--line2);border-radius:10px;
+  padding:18px;flex:1;text-align:left;
+}
+.ag-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:16px}
+.ag-t{font-family:var(--h);font-size:12px;font-weight:600;color:#fff;margin-bottom:4px}
+.ag-d{font-size:11px;color:var(--txt2);line-height:1.55;font-family:var(--b)}
+
+/* ── CHAT ── */
+#pg-chat{display:flex;flex-direction:column;height:calc(100vh - 48px);min-height:560px}
+.chat-top{
+  padding:14px 20px;border-bottom:1px solid var(--line2);
+  display:flex;align-items:center;gap:12px;flex-shrink:0;
+}
+.ag-badge{
+  width:36px;height:36px;border-radius:8px;
+  background:rgba(27,108,242,0.15);border:1px solid rgba(27,108,242,0.25);
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.ag-meta{flex:1}
+.ag-nm{font-family:var(--h);font-size:13px;font-weight:600;color:#fff}
+.ag-st{font-size:11px;color:var(--accent2);font-family:var(--b);display:flex;align-items:center;gap:5px}
+.ag-st::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent2);display:inline-block}
+.prog-wrap{padding:10px 20px;border-bottom:1px solid var(--line);flex-shrink:0}
+.prog-row{display:flex;justify-content:space-between;font-size:10px;color:var(--txt2);margin-bottom:5px;font-family:var(--h);letter-spacing:.03em}
+.prog-track{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--accent);border-radius:2px;width:35%;transition:width .5s}
+.chat-msgs{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.msg{display:flex;gap:9px;max-width:500px}
+.msg.u{align-self:flex-end;flex-direction:row-reverse}
+.bub{padding:11px 15px;border-radius:10px;font-size:13px;line-height:1.65;font-family:var(--b)}
+.msg.ai .bub{background:var(--card2);border:1px solid var(--line2);color:var(--txt)}
+.msg.u .bub{background:var(--accent);color:#fff;border-radius:10px 10px 3px 10px}
+.av{width:30px;height:30px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(27,108,242,0.15);border:1px solid rgba(27,108,242,0.2);margin-top:2px}
+.msg.u .av{background:rgba(255,255,255,0.06);border-color:var(--line2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chp{
+  padding:6px 12px;border-radius:5px;font-size:11px;font-family:var(--h);font-weight:500;
+  cursor:pointer;border:1px solid rgba(27,108,242,0.3);color:var(--accent);
+  background:rgba(27,108,242,0.07);transition:all .2s;
+}
+.chp:hover{background:rgba(27,108,242,0.18)}
+.chat-in-row{
+  padding:12px 20px;border-top:1px solid var(--line2);
+  display:flex;gap:8px;flex-shrink:0;
+  background:rgba(10,14,26,0.8);
+}
+.chat-in{
+  flex:1;background:var(--card2);border:1px solid var(--line2);
+  border-radius:6px;padding:9px 14px;color:var(--txt);font-size:13px;
+  font-family:var(--b);outline:none;
+}
+.chat-in::placeholder{color:var(--txt2)}
+.chat-in:focus{border-color:rgba(27,108,242,0.4)}
+.send{
+  width:36px;height:36px;border-radius:6px;border:none;cursor:pointer;
+  background:var(--accent);color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;transition:.2s;
+}
+.send:hover{background:#1558D6}
+
+/* ── DASHBOARD ── */
+#pg-dash{padding-bottom:32px}
+.dash-top{padding:18px 22px 14px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between;align-items:center}
+.dash-greet{font-family:var(--h);font-size:17px;font-weight:600;color:#fff;margin-bottom:2px}
+.dash-sub2{font-size:12px;color:var(--txt2);font-family:var(--b)}
+.lv-badge{padding:5px 12px;border-radius:5px;font-size:10px;font-family:var(--h);font-weight:600;letter-spacing:.06em;background:rgba(13,212,184,0.1);color:var(--accent2);border:1px solid rgba(13,212,184,0.2)}
+.alert-bar{
+  margin:16px 22px;padding:13px 16px;border-radius:8px;
+  background:rgba(27,108,242,0.08);border:1px solid rgba(27,108,242,0.18);
+  display:flex;align-items:center;gap:12px;
+}
+.alert-icon{font-size:18px;color:var(--accent);flex-shrink:0}
+.alert-body{flex:1}
+.alert-t{font-family:var(--h);font-size:12px;font-weight:600;color:#fff;margin-bottom:2px}
+.alert-d{font-size:11px;color:var(--txt2);font-family:var(--b)}
+.alert-btn{
+  padding:6px 14px;border-radius:5px;font-size:11px;font-family:var(--h);font-weight:600;
+  border:1px solid rgba(27,108,242,0.4);color:var(--accent);background:transparent;
+  cursor:pointer;white-space:nowrap;transition:.2s;
+}
+.alert-btn:hover{background:rgba(27,108,242,0.14)}
+.dash-body{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 22px}
+.full{grid-column:1/-1}
+.panel{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:16px}
+.panel-h{font-family:var(--h);font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--txt2);margin-bottom:14px;text-transform:uppercase}
+.skill-g{width:100%;height:180px}
+.skill-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.sk{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:4px;font-size:11px;font-family:var(--h);font-weight:500}
+.sk.a{background:rgba(13,212,184,0.08);border:1px solid rgba(13,212,184,0.22);color:var(--accent2)}
+.sk.b{background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.22);color:var(--accent3)}
+.sk.c{background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.22);color:var(--warm)}
+.sk i{font-size:12px}
+.mcard{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:16px}
+.mcard-n{font-family:var(--h);font-size:24px;font-weight:700;color:#fff;margin-bottom:4px}
+.mcard-n.a{color:var(--accent)}
+.mcard-n.t{color:var(--accent2)}
+.mcard-l{font-size:11px;color:var(--txt2);font-family:var(--b)}
+.mcard-s{font-size:11px;color:var(--txt2);margin-top:10px;padding-top:10px;border-top:1px solid var(--line2);font-family:var(--b)}
+.opp-list{display:flex;flex-direction:column;gap:8px}
+.opp{
+  background:var(--card);border:1px solid var(--line2);border-radius:8px;
+  padding:11px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.2s;
+}
+.opp:hover{border-color:rgba(27,108,242,0.3)}
+.opp-ic{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.opp-body{flex:1}
+.opp-t{font-size:12px;font-weight:500;color:#fff;font-family:var(--h);margin-bottom:2px}
+.opp-m{font-size:11px;color:var(--txt2);font-family:var(--b)}
+.pill{padding:3px 8px;border-radius:4px;font-size:10px;font-family:var(--h);font-weight:600}
+.pill.hi{background:rgba(13,212,184,0.1);color:var(--accent2)}
+.pill.dl{background:rgba(245,166,35,0.1);color:var(--warm)}
+
+/* ── REFLECT ── */
+#pg-ref{padding-bottom:32px}
+.ref-top{padding:22px 22px 18px;border-bottom:1px solid var(--line2)}
+.ref-top h2{font-family:var(--h);font-size:18px;font-weight:600;color:#fff;margin-bottom:4px}
+.ref-top p{font-size:13px;color:var(--txt2);font-family:var(--b)}
+.rec-panel{margin:18px 22px;background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:24px;display:flex;flex-direction:column;align-items:center}
+.rec-btn{
+  width:72px;height:72px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(99,102,241,0.15);border:1.5px solid rgba(99,102,241,0.4);
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  transition:all .2s;margin-bottom:12px;color:var(--accent3);
+}
+.rec-btn:hover{background:rgba(99,102,241,0.25)}
+.rec-btn.live{background:rgba(220,38,38,0.12);border-color:rgba(220,38,38,0.4);color:#EF4444;animation:rp 1.4s infinite}
+@keyframes rp{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}50%{box-shadow:0 0 0 10px rgba(239,68,68,0)}}
+.rec-lbl{font-family:var(--h);font-size:12px;color:var(--txt2);margin-bottom:14px}
+.wv{display:flex;align-items:center;gap:2px;height:40px;margin-bottom:6px}
+.wb{width:3px;border-radius:2px;background:rgba(99,102,241,0.3);height:6px;transition:.1s}
+.wb.on{background:var(--accent3);animation:ww .7s ease-in-out infinite alternate}
+@keyframes ww{from{height:4px}to{height:30px}}
+.rec-timer{font-size:11px;color:var(--txt2);font-family:var(--h)}
+.ins-panel{padding:0 22px}
+.ins-h{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-family:var(--h);font-size:11px;font-weight:600;color:var(--txt2);letter-spacing:.08em;text-transform:uppercase}
+.ins-h::before{content:'';width:3px;height:14px;background:var(--accent2);border-radius:2px;display:block}
+.ins-card{background:rgba(13,212,184,0.04);border:1px solid rgba(13,212,184,0.15);border-radius:8px;padding:14px;margin-bottom:8px}
+.ins-type{font-size:10px;color:var(--accent2);font-family:var(--h);font-weight:600;letter-spacing:.08em;margin-bottom:6px;text-transform:uppercase}
+.ins-txt{font-size:13px;line-height:1.65;color:var(--txt);font-family:var(--b)}
+.probe-card{background:rgba(27,108,242,0.05);border:1px solid rgba(27,108,242,0.18);border-radius:8px;padding:14px;margin-bottom:8px}
+.probe-type{font-size:10px;color:var(--accent);font-family:var(--h);font-weight:600;letter-spacing:.08em;margin-bottom:6px;text-transform:uppercase}
+.probe-txt{font-size:13px;line-height:1.65;color:var(--txt);font-family:var(--b)}
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+</style>
+
+<h2 class="sr-only">Future Architect AI (FAI) — interactive platform prototype with four screens: Landing, Discovery Chat, Central Dashboard, and Reflection Studio</h2>
+
+<div style="position:relative;height:620px;overflow:hidden">
+
+<nav>
+  <div class="brand">Future <em>Architect</em> AI</div>
+  <div class="tabs">
+    <button class="tab on" onclick="go('land')">Overview</button>
+    <button class="tab" onclick="go('chat')">Discovery</button>
+    <button class="tab" onclick="go('dash')">Dashboard</button>
+    <button class="tab" onclick="go('ref')">Reflection</button>
+  </div>
+</nav>
+
+<!-- LANDING -->
+<div class="scr on" id="pg-land">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:40px 24px;text-align:center">
+    <div class="lbl"><i class="ti ti-cpu" aria-hidden="true"></i>Multi-Agent AI Platform</div>
+    <h1 class="hero">Design Your Destiny<br><span>with FAI</span></h1>
+    <p class="sub">ออกแบบโครงสร้างอนาคตที่แม่นยำ ผ่านระบบ AI 3 Agents<br>ที่วิเคราะห์ตัวตนจากประสบการณ์จริง</p>
+    <button class="cta" onclick="go('chat')"><i class="ti ti-arrow-right" aria-hidden="true"></i> เริ่มต้นใช้งาน</button>
+    <div class="stats">
+      <div class="stat-item"><div class="stat-n">2,400+</div><div class="stat-l">ผู้ใช้งานเชิงรุก</div></div>
+      <div class="stat-item"><div class="stat-n">94%</div><div class="stat-l">ความแม่นยำ Skill Match</div></div>
+      <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">AI Agents ทำงานคู่ขนาน</div></div>
+    </div>
+    <div class="agents">
+      <div class="ag">
+        <div class="ag-icon" style="background:rgba(27,108,242,0.12);border:1px solid rgba(27,108,242,0.2);color:var(--accent)"><i class="ti ti-user-search" aria-hidden="true"></i></div>
+        <div class="ag-t">Soul-Searcher</div>
+        <div class="ag-d">สัมภาษณ์เชิงลึกเพื่อดึงความสนใจแฝง และทักษะพื้นฐาน</div>
+      </div>
+      <div class="ag">
+        <div class="ag-icon" style="background:rgba(13,212,184,0.12);border:1px solid rgba(13,212,184,0.2);color:var(--accent2)"><i class="ti ti-route" aria-hidden="true"></i></div>
+        <div class="ag-t">Opportunity Scout</div>
+        <div class="ag-d">แนะนำเส้นทางค่าย สนามสอบ และกิจกรรมที่ตรงกับตัวตน</div>
+      </div>
+      <div class="ag">
+        <div class="ag-icon" style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);color:var(--accent3)"><i class="ti ti-microphone" aria-hidden="true"></i></div>
+        <div class="ag-t">Experience Reviewer</div>
+        <div class="ag-d">วิเคราะห์น้ำเสียงและเนื้อหาเพื่อสะท้อนความเหมาะสมของเส้นทาง</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div class="scr" id="pg-chat" style="display:flex;flex-direction:column;height:572px">
+  <div class="chat-top">
+    <div class="ag-badge"><i class="ti ti-user-search" style="font-size:16px;color:var(--accent)" aria-hidden="true"></i></div>
+    <div class="ag-meta">
+      <div class="ag-nm">Soul-Searcher Agent</div>
+      <div class="ag-st">วิเคราะห์ผลการสัมภาษณ์</div>
+    </div>
+    <div style="font-size:10px;color:var(--txt2);font-family:var(--h);letter-spacing:.06em">PHASE 01 / 04</div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-row"><span>Identity Analysis Progress</span><span id="pp">35%</span></div>
+    <div class="prog-track"><div class="prog-fill" id="pf"></div></div>
+  </div>
+  <div class="chat-msgs" id="cm">
+    <div class="msg ai">
+      <div class="av"><i class="ti ti-user-search" style="font-size:13px;color:var(--accent)" aria-hidden="true"></i></div>
+      <div>
+        <div class="bub">สวัสดีครับ ผมคือ Soul-Searcher Agent ของ FAI<br><br>เพื่อเริ่มต้นวิเคราะห์ศักยภาพ ขอถามตรงๆ ว่า ครั้งล่าสุดที่คุณรู้สึกว่า "เราทำสิ่งนี้ได้ดีกว่าคนอื่น" มันเป็นเรื่องอะไร?</div>
+        <div class="chips" id="ch1">
+          <div class="chp" onclick="pick(this,'การแก้โจทย์ Logic หรือ Programming')">การแก้โจทย์ Logic หรือ Programming</div>
+          <div class="chp" onclick="pick(this,'การออกแบบและสื่อสารด้วยภาพ')">การออกแบบและสื่อสารด้วยภาพ</div>
+          <div class="chp" onclick="pick(this,'การนำทีมและแก้ปัญหาร่วมกัน')">การนำทีมและแก้ปัญหาร่วมกัน</div>
+          <div class="chp" onclick="pick(this,'การเขียนและการถ่ายทอดความคิด')">การเขียนและการถ่ายทอดความคิด</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-in-row">
+    <input class="chat-in" id="ci" placeholder="พิมพ์คำตอบ..." onkeydown="if(event.key==='Enter')snd()">
+    <button class="send" onclick="snd()" aria-label="ส่งข้อความ"><i class="ti ti-send" aria-hidden="true"></i></button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="scr" id="pg-dash">
+  <div class="dash-top">
+    <div>
+      <div class="dash-greet">Intelligence Dashboard</div>
+      <div class="dash-sub2">Skill Graph · น้องมายด์ · อัปเดต 2 ชม.ที่แล้ว</div>
+    </div>
+    <div class="lv-badge">LV.3 ARCHITECT</div>
+  </div>
+  <div class="alert-bar" style="margin:14px 22px">
+    <i class="ti ti-bell" style="font-size:18px;color:var(--accent)" aria-hidden="true"></i>
+    <div class="alert-body">
+      <div class="alert-t">ค่าย POSN วิทย์คอม — ตรงกับ Profile ของคุณ 94%</div>
+      <div class="alert-d">ปิดรับสมัคร 30 ม.ค. · แนะนำให้สมัคร</div>
+    </div>
+    <button class="alert-btn">บันทึก</button>
+  </div>
+  <div class="dash-body">
+    <div class="panel full">
+      <div class="panel-h">Skill Graph — ทักษะที่ตรวจพบ</div>
+      <svg class="skill-g" viewBox="0 0 580 175">
+        <line x1="290" y1="160" x2="290" y2="95" stroke="rgba(27,108,242,0.5)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="290" y1="115" x2="185" y2="68" stroke="rgba(13,212,184,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="290" y1="110" x2="395" y2="62" stroke="rgba(99,102,241,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="290" y1="125" x2="150" y2="110" stroke="rgba(245,166,35,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="290" y1="120" x2="430" y2="95" stroke="rgba(13,212,184,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="185" y1="68" x2="130" y2="40" stroke="rgba(13,212,184,0.25)" stroke-width="1"/>
+        <line x1="395" y1="62" x2="450" y2="34" stroke="rgba(99,102,241,0.25)" stroke-width="1"/>
+        <circle cx="290" cy="168" r="7" fill="rgba(27,108,242,0.8)"/>
+        <circle cx="290" cy="92" r="12" fill="rgba(27,108,242,0.15)" stroke="rgba(27,108,242,0.6)" stroke-width="1.5"/>
+        <circle cx="185" cy="66" r="18" fill="rgba(13,212,184,0.1)" stroke="rgba(13,212,184,0.5)" stroke-width="1.5"/>
+        <text x="185" y="61" text-anchor="middle" fill="rgba(13,212,184,0.9)" font-size="9" font-family="Prompt" font-weight="600">Tech</text>
+        <text x="185" y="73" text-anchor="middle" fill="rgba(13,212,184,0.6)" font-size="8" font-family="Prompt">Lv.5</text>
+        <circle cx="395" cy="60" r="18" fill="rgba(99,102,241,0.1)" stroke="rgba(99,102,241,0.5)" stroke-width="1.5"/>
+        <text x="395" y="55" text-anchor="middle" fill="rgba(99,102,241,0.9)" font-size="9" font-family="Prompt" font-weight="600">Creative</text>
+        <text x="395" y="67" text-anchor="middle" fill="rgba(99,102,241,0.6)" font-size="8" font-family="Prompt">Lv.3</text>
+        <circle cx="150" cy="108" r="14" fill="rgba(245,166,35,0.08)" stroke="rgba(245,166,35,0.4)" stroke-width="1"/>
+        <text x="150" y="104" text-anchor="middle" fill="rgba(245,166,35,0.8)" font-size="8" font-family="Prompt" font-weight="600">Social</text>
+        <text x="150" y="114" text-anchor="middle" fill="rgba(245,166,35,0.5)" font-size="7" font-family="Prompt">Lv.2</text>
+        <circle cx="430" cy="93" r="14" fill="rgba(13,212,184,0.06)" stroke="rgba(13,212,184,0.3)" stroke-width="1"/>
+        <text x="430" y="89" text-anchor="middle" fill="rgba(13,212,184,0.7)" font-size="8" font-family="Prompt" font-weight="600">Logic</text>
+        <text x="430" y="99" text-anchor="middle" fill="rgba(13,212,184,0.4)" font-size="7" font-family="Prompt">Lv.4</text>
+        <circle cx="130" cy="38" r="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3 2"/>
+        <text x="130" y="42" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="10" font-family="Prompt">?</text>
+        <circle cx="452" cy="32" r="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3 2"/>
+        <text x="452" y="36" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="10" font-family="Prompt">?</text>
+      </svg>
+      <div class="skill-tags">
+        <div class="sk a"><i class="ti ti-code" aria-hidden="true"></i>Tech-Savvy</div>
+        <div class="sk b"><i class="ti ti-brush" aria-hidden="true"></i>Creative System</div>
+        <div class="sk c"><i class="ti ti-network" aria-hidden="true"></i>Logical Thinker</div>
+        <div class="sk" style="background:var(--card2);border:1px solid var(--line2);color:var(--txt2)"><i class="ti ti-plus" aria-hidden="true"></i>ค้นพบเพิ่ม...</div>
+      </div>
+    </div>
+    <div class="mcard"><div class="mcard-n a">12</div><div class="mcard-l">กิจกรรมที่บันทึกแล้ว</div><div class="mcard-s">เพิ่มขึ้น 3 รายการเดือนนี้</div></div>
+    <div class="mcard"><div class="mcard-n t">87%</div><div class="mcard-l">ความสอดคล้องกับเส้นทาง</div><div class="mcard-s">Tech + Creative pathway</div></div>
+    <div class="panel full">
+      <div class="panel-h">Opportunity Board — แนะนำสำหรับคุณ</div>
+      <div class="opp-list">
+        <div class="opp">
+          <div class="opp-ic" style="background:rgba(13,212,184,0.08);color:var(--accent2)"><i class="ti ti-school" aria-hidden="true"></i></div>
+          <div class="opp-body"><div class="opp-t">ค่าย POSN วิทยาศาสตร์คอมพิวเตอร์</div><div class="opp-m">ออนไซต์ · กรุงเทพฯ · ปิดรับ 30 ม.ค.</div></div>
+          <div class="pill hi">Match 94%</div>
+        </div>
+        <div class="opp">
+          <div class="opp-ic" style="background:rgba(245,166,35,0.08);color:var(--warm)"><i class="ti ti-calendar" aria-hidden="true"></i></div>
+          <div class="opp-body"><div class="opp-t">TCAS สาขา Software Engineering</div><div class="opp-m">ม.เกษตร · ม.มหิดล · ม.ธรรมศาสตร์</div></div>
+          <div class="pill dl">15 วัน</div>
+        </div>
+        <div class="opp">
+          <div class="opp-ic" style="background:rgba(99,102,241,0.08);color:var(--accent3)"><i class="ti ti-trophy" aria-hidden="true"></i></div>
+          <div class="opp-body"><div class="opp-t">Hackathon — AI for Social Good 2025</div><div class="opp-m">ออนไลน์ · ทีม 3–5 คน · เปิดรับอยู่</div></div>
+          <div class="pill hi">ใหม่</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REFLECTION -->
+<div class="scr" id="pg-ref">
+  <div class="ref-top">
+    <h2>Reflection Studio</h2>
+    <p>บันทึกประสบการณ์หลังกิจกรรม · AI วิเคราะห์ Engagement Level และความเหมาะสมกับเส้นทาง</p>
+  </div>
+  <div class="rec-panel">
+    <button class="rec-btn" id="rb" onclick="tog()" aria-label="เริ่มหรือหยุดบันทึกเสียง"><i class="ti ti-microphone" id="ri" aria-hidden="true"></i></button>
+    <div class="rec-lbl" id="rl">กดเพื่อเริ่มบันทึกเสียง</div>
+    <div class="wv" id="wv"></div>
+    <div class="rec-timer" id="rt">00:00</div>
+  </div>
+  <div class="ins-panel">
+    <div class="ins-h">Key Insights · Real-time Analysis</div>
+    <div class="ins-card">
+      <div class="ins-type"><i class="ti ti-chart-line" style="font-size:10px;margin-right:4px" aria-hidden="true"></i>Passion Signal</div>
+      <div class="ins-txt">ตรวจพบการกล่าวถึง "การเขียนโค้ด" สูงกว่าค่าเฉลี่ย 3.2x ด้วยระดับน้ำเสียงที่แสดงถึง High Engagement — ชี้ให้เห็น Core Domain Affinity</div>
+    </div>
+    <div class="ins-card">
+      <div class="ins-type"><i class="ti ti-bolt" style="font-size:10px;margin-right:4px" aria-hidden="true"></i>Strength Pattern</div>
+      <div class="ins-txt">พบแพทเทิร์น Self-Directed Problem Solving ในการเล่าเรื่อง บ่งชี้ถึงความสามารถในการทำงานอิสระโดยไม่ต้องพึ่งพาการสนับสนุนภายนอก</div>
+    </div>
+    <div class="probe-card">
+      <div class="probe-type"><i class="ti ti-message-2" style="font-size:10px;margin-right:4px" aria-hidden="true"></i>Analytical Probe</div>
+      <div class="probe-txt">คุณให้น้ำหนักกับ "กระบวนการคิด" มากกว่า "ผลลัพธ์ที่ได้รับ" — ข้อมูลนี้บ่งชี้ความเหมาะสมกับสายงาน Backend Engineering หรือ Research มากกว่า Product Management</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const S={land:'pg-land',chat:'pg-chat',dash:'pg-dash',ref:'pg-ref'};
+const tabs=document.querySelectorAll('.tab');
+const keys=['land','chat','dash','ref'];
+function go(id){
+  Object.values(S).forEach(s=>document.getElementById(s).classList.remove('on'));
+  document.getElementById(S[id]).classList.add('on');
+  tabs.forEach((t,i)=>t.classList.toggle('on',keys[i]===id));
+}
+const chatData=[
+  {u:'การแก้โจทย์ Logic หรือ Programming',a:'ข้อมูลนี้ชัดเจนครับ ทักษะ Logical Reasoning ที่แข็งแกร่งมักเชื่อมกับงาน Engineering หรือ Data Science\n\nคำถามต่อไป: เวลาทำโปรเจกต์กลุ่ม คุณมักรับบทบาทใด?',c:['ผู้คิดโครงสร้างและระบบ','ผู้ประสานงานทีม','ผู้นำเสนอผลงาน','ผู้ลงมือทำและแก้ Bug']},
+  {u:null,a:'Pattern ของคุณเริ่มชัดขึ้นแล้วครับ\n\nฉันตรวจพบ: Systematic Thinker + Technical Executor ซึ่งตรงกับ Profile ของวิศวกรซอฟต์แวร์ระดับสูงในตลาดงาน\n\nต้องการให้ Opportunity Scout Agent แนะนำเส้นทางที่ตรงกับ Profile นี้ไหมครับ?',c:['ดู Roadmap ที่แนะนำ','วิเคราะห์เพิ่มเติมก่อน']}
+];
+let step=0,used=false,recOn=false,sec=0,iv=null;
+function pick(el,txt){
+  if(used)return;used=true;
+  el.closest('.chips').querySelectorAll('.chp').forEach(c=>c.style.opacity='0.35');
+  add(txt,'u');setTimeout(()=>ai(),700);
+}
+function snd(){
+  const v=document.getElementById('ci').value.trim();
+  if(!v)return;document.getElementById('ci').value='';
+  add(v,'u');setTimeout(()=>ai(),700);
+}
+function add(t,r){
+  const b=document.getElementById('cm');
+  const d=document.createElement('div');d.className='msg '+r;
+  const av=document.createElement('div');av.className='av';
+  av.innerHTML=r==='ai'?'<i class="ti ti-user-search" style="font-size:13px;color:var(--accent)" aria-hidden="true"></i>':'<i class="ti ti-user" style="font-size:13px;color:var(--txt2)" aria-hidden="true"></i>';
+  const bub=document.createElement('div');bub.className='bub';bub.style.whiteSpace='pre-line';bub.textContent=t;
+  if(r==='ai'){d.appendChild(av);d.appendChild(bub);}
+  else{d.appendChild(av);d.appendChild(bub);}
+  b.appendChild(d);b.scrollTop=b.scrollHeight;
+}
+function ai(){
+  used=false;
+  const d=chatData[step%chatData.length];step++;
+  const b=document.getElementById('cm');
+  const row=document.createElement('div');row.className='msg ai';
+  const av=document.createElement('div');av.className='av';
+  av.innerHTML='<i class="ti ti-user-search" style="font-size:13px;color:var(--accent)" aria-hidden="true"></i>';
+  const wrap=document.createElement('div');
+  const bub=document.createElement('div');bub.className='bub';bub.style.whiteSpace='pre-line';bub.textContent=d.a;
+  wrap.appendChild(bub);
+  if(d.c){const cs=document.createElement('div');cs.className='chips';d.c.forEach(t=>{const c=document.createElement('div');c.className='chp';c.textContent=t;c.onclick=function(){pick(this,t)};cs.appendChild(c)});wrap.appendChild(cs);}
+  row.appendChild(av);row.appendChild(wrap);b.appendChild(row);b.scrollTop=b.scrollHeight;
+  const pct=Math.min(35+step*20,95);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('pp').textContent=pct+'%';
+}
+const wv=document.getElementById('wv');
+for(let i=0;i<30;i++){const b=document.createElement('div');b.className='wb';b.style.cssText='animation-delay:'+(Math.random()*.7)+'s;animation-duration:'+(0.4+Math.random()*.4)+'s';wv.appendChild(b);}
+function tog(){
+  recOn=!recOn;
+  const rb=document.getElementById('rb');const ri=document.getElementById('ri');
+  const rl=document.getElementById('rl');const bars=wv.querySelectorAll('.wb');
+  if(recOn){
+    rb.classList.add('live');ri.className='ti ti-square';rl.textContent='กำลังบันทึก...';rl.style.color='#EF4444';
+    bars.forEach(b=>b.classList.add('on'));
+    iv=setInterval(()=>{sec++;const m=String(Math.floor(sec/60)).padStart(2,'0');const s=String(sec%60).padStart(2,'0');document.getElementById('rt').textContent=m+':'+s;},1000);
+  }else{
+    rb.classList.remove('live');ri.className='ti ti-microphone';rl.textContent='บันทึกสำเร็จ — กำลังประมวลผล';rl.style.color='var(--accent2)';
+    bars.forEach(b=>b.classList.remove('on'));clearInterval(iv);sec=0;document.getElementById('rt').textContent='00:00';
+  }
+}
+</script>
